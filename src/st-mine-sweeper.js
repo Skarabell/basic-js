@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+import {NotImplementedError} from '../extensions/index.js';
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -23,7 +23,30 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function minesweeper(matrix) {
+    let row = matrix.length;
+    let column = matrix[0].length;
+    let counter;
+    const result = [];
+
+    for (let i = 0; i < row; i++) {
+        result[i] = new Array(column);
+    }
+
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < column; j++) {
+            counter = 0;
+            if (i - 1 >= 0 && j - 1 >= 0) if (matrix[i - 1][j - 1]) counter++;
+            if (i - 1 >= 0) if (matrix[i - 1][j]) counter++;
+            if (i - 1 >= 0 && j + 1 < column) if (matrix[i - 1][j + 1]) counter++;
+            if (j - 1 >= 0) if (matrix[i][j - 1]) counter++;
+            if (j + 1 < column) if (matrix[i][j + 1]) counter++;
+            if (i + 1 < row && j - 1 >= 0) if (matrix[i + 1][j - 1]) counter++;
+            if (i + 1 < row) if (matrix[i + 1][j]) counter++;
+            if (i + 1 < row && j + 1 < column) if (matrix[i + 1][j + 1]) counter++;
+            console.log(`result[${i}][${j}] = ${counter}`);
+            result[i][j] = counter;
+        }
+    }
+    return result;
 }
